@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SG2026 Style - Okinawa Itinerary</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 精確參照 SG2026 GitHub 風格與色彩 */
+        :root {
+            --sg-primary: #2d5a27;      /* 深綠色 */
+            --sg-secondary: #e9f5e8;    /* 淡綠色背景 */
+            --sg-text: #333333;
+            --sg-gray: #666666;
+            --sg-border: #dddddd;
+            --sg-link-hover: #dcfce7;
+        }
+        
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, "PingFang TC", "Microsoft JhengHei", sans-serif;
+            color: var(--sg-text);
+            background-color: #ffffff;
+            margin: 0;
+        }
+
+        /* 導覽列 - 仿照 SG2026 Navbar */
+        .navbar {
+            background-color: var(--sg-primary);
+            padding: 0.8rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            color: white;
+            font-weight: bold;
+            font-size: 1.25rem;
+            text-decoration: none;
+        }
+
+        .navbar-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Hero 區塊 */
+        .hero {
+            background-color: var(--sg-primary);
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin-top: 0.5rem;
+        }
+
+        /* 內容容器 */
+        .content-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+
+        /* 搜尋與篩選器 - 仿照 SG2026 介面 */
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--sg-border);
+            gap: 1rem;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .tab-item {
+            padding: 0.8rem 0.2rem;
+            cursor: pointer;
+            color: var(--sg-gray);
+            font-weight: 500;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab-item:hover {
+            color: var(--sg-primary);
+        }
+
+        .tab-item.active {
+            color: var(--sg-primary);
+            border-bottom-color: var(--sg-primary);
+        }
+
+        .search-box input {
+            border: 1px solid var(--sg-border);
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            width: 250px;
+            margin-bottom: 0.8rem;
+        }
+
+        /* 表格結構 - 1:1 參照範例 */
+        .sg-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .sg-table thead th {
+            text-align: left;
+            background-color: #f9f9f9;
+            padding: 15px;
+            font-weight: bold;
+            border-top: 2px solid var(--sg-primary);
+            border-bottom: 1px solid var(--sg-border);
+        }
+
+        .sg-table tbody td {
+            padding: 20px 15px;
+            border-bottom: 1px solid var(--sg-border);
+            vertical-align: top;
+        }
+
+        .sg-table tr:hover {
+            background-color: #fcfcfc;
+        }
+
+        /* 日期標頭 */
+        .date-row {
+            background-color: #f1f1f1;
+            padding: 8px 15px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #555;
+            text-transform: uppercase;
+        }
+
+        /* 標籤 Badge */
+        .badge {
+            display: inline-block;
+            padding: 2px 10px;
+            font-size: 11px;
+            font-weight: bold;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+        .badge-move { background-color: #f3f4f6; color: #4b5563; border: 1px solid #d1d5db; }
+        .badge-sight { background-color: var(--sg-secondary); color: var(--sg-primary); border: 1px solid #bbf7d0; }
+        .badge-food { background-color: #fef9c3; color: #854d0e; border: 1px solid #fef08a; }
+        .badge-stay { background-color: #e0f2fe; color: #075985; border: 1px solid #bae6fd; }
+
+        /* 頁尾 */
+        footer {
+            background-color: #f8f8f8;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--sg-border);
+            color: var(--sg-gray);
+            font-size: 0.85rem;
+        }
+
+        .note-text {
+            color: #e53e3e;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 導覽列 -->
+    <nav class="navbar">
+        <a href="#" class="navbar-brand">Okinawa 2026</a>
+        <div class="navbar-links">
+            <a href="#">首頁</a>
+            <a href="#">行程一覽</a>
+            <a href="#">聯絡資訊</a>
+        </div>
+    </nav>
+
+    <!-- 標題區 -->
+    <header class="hero">
+        <h1>沖繩五天四夜·自駕與散策行程</h1>
+        <p>2026/05/21 - 2026/05/25 旅遊詳細清單</p>
+    </header>
+
+    <main class="content-container">
+        
+        <!-- 控制項 -->
+        <div class="controls">
+            <div class="tabs" id="tabs">
+                <div class="tab-item active" data-type="All">All</div>
+                <div class="tab-item" data-type="景點">景點</div>
+                <div class="tab-item" data-type="移動">移動</div>
+                <div class="tab-item" data-type="飲食">飲食</div>
+                <div class="tab-item" data-type="住宿">住宿</div>
+            </div>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="搜尋行程標題或內容...">
+            </div>
+        </div>
+
+        <!-- 表格 -->
+        <div style="overflow-x: auto;">
+            <table class="sg-table">
+                <thead>
+                    <tr>
+                        <th style="width: 15%;">時間</th>
+                        <th style="width: 15%;">類別</th>
+                        <th style="width: 70%;">行程活動與詳細描述</th>
+                    </tr>
+                </thead>
+                <tbody id="itineraryBody">
+                    <!-- 資料將由 JS 填入 -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <footer>
+        <p style="font-weight: bold; margin-bottom: 10px;">Okinawa Travel Planning 2026</p>
+        <p>版面樣式參考自 SG2026 研討會網頁</p>
+        <p style="margin-top: 20px; opacity: 0.6;">&copy; 2026 All rights reserved.</p>
+    </footer>
+
+    <script>
+        // 根據您上傳的 CSV 內容更新的實際行程資料
+        const travelData = [
+            { date: "2026/05/21", time: "11:30", type: "移動", title: "出發桃園機場T1", content: "前往桃園機場搭乘 14:45 飛往沖繩班機", note: "最晚中午12點前要出發" },
+            { date: "2026/05/21", time: "14:45", type: "移動", title: "班機起飛", content: "飛行時間 1.5hr", note: "" },
+            { date: "2026/05/21", time: "17:20", type: "移動", title: "抵達沖繩那霸機場", content: "拿取行李後，搭單軌電車前往牧志站", note: "" },
+            { date: "2026/05/21", time: "18:30", type: "住宿", title: "飯店休息 - ALPHABED INN", content: "ALPHABED INN 那覇国際通りWEST 入住手續", note: "準備腳力吃飯逛街囉~" },
+            { date: "2026/05/21", time: "19:30", type: "景點", title: "國際通散策", content: "在那霸最熱鬧的街道尋找晚餐與伴手禮", note: "" },
+            
+            { date: "2026/05/22", time: "08:00", type: "飲食", title: "早餐時光", content: "那霸市第一牧志公設市場", note: "嘗試在地新鮮海產" },
+            { date: "2026/05/22", time: "11:00", type: "住宿", title: "飯店Check out", content: "準備租車並一路向北", note: "" },
+            { date: "2026/05/22", time: "13:00", type: "景點", title: "セカンドストリート浦添58号店", content: "Second Street 挖寶之旅", note: "" },
+            { date: "2026/05/22", time: "15:00", type: "住宿", title: "入住北谷飯店", content: "tatami no yado chatan mihama by coldio", note: "" },
+            { date: "2026/05/22", time: "16:30", type: "飲食", title: "美濱迴轉壽司市場", content: "美國村超人氣壽司，16:30開始營業", note: "建議提早排隊領號碼牌" },
+            
+            { date: "2026/05/23", time: "09:00", type: "飲食", title: "早餐時光", content: "客美多咖啡 沖繩北谷58號店", note: "" },
+            { date: "2026/05/23", time: "11:00", type: "景點", title: "美國村散策", content: "充滿異國風情的休閒與購物區", note: "" },
+            { date: "2026/05/23", time: "14:00", type: "景點", title: "美麗海水族館", content: "觀賞鯨鯊與黑潮之海，為世界上最大的水族館之一", note: "貫通水族館一樓至二樓的巨大水槽" }
+        ];
+
+        let currentType = "All";
+        let searchTerm = "";
+
+        function getBadgeType(type) {
+            switch(type) {
+                case '移動': return 'badge-move';
+                case '景點': return 'badge-sight';
+                case '飲食': return 'badge-food';
+                case '住宿': return 'badge-stay';
+                default: return 'badge-move';
+            }
+        }
+
+        function render() {
+            const tbody = document.getElementById('itineraryBody');
+            const filtered = travelData.filter(item => {
+                const matchType = currentType === "All" || item.type === currentType;
+                const matchSearch = item.title.includes(searchTerm) || item.content.includes(searchTerm);
+                return matchType && matchSearch;
+            });
+
+            let html = "";
+            let lastDate = "";
+
+            filtered.forEach(item => {
+                if (item.date !== lastDate) {
+                    html += `<tr><td colspan="3" class="date-row">${item.date}</td></tr>`;
+                    lastDate = item.date;
+                }
+
+                html += `
+                    <tr>
+                        <td style="font-family: monospace; color: #777;">${item.time}</td>
+                        <td><span class="badge ${getBadgeType(item.type)}">${item.type}</span></td>
+                        <td>
+                            <div style="font-weight: bold; font-size: 1.05rem; margin-bottom: 4px;">${item.title}</div>
+                            <div style="color: #666; font-size: 0.95rem;">${item.content}</div>
+                            ${item.note ? `<div class="note-text">※ ${item.note}</div>` : ''}
+                        </td>
+                    </tr>
+                `;
+            });
+
+            tbody.innerHTML = html || '<tr><td colspan="3" style="text-align:center; padding: 50px; color: #999;">沒有符合條件的行程資料。</td></tr>';
+        }
+
+        // 事件監聽
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            searchTerm = e.target.value;
+            render();
+        });
+
+        document.querySelectorAll('.tab-item').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                currentType = tab.getAttribute('data-type');
+                render();
+            });
+        });
+
+        // 初始渲染
+        render();
+    </script>
+</body>
+</html>
