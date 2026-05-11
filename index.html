@@ -21,6 +21,7 @@
             color: var(--sg-text);
             background-color: #ffffff;
             margin: 0;
+            -webkit-font-smoothing: antialiased;
         }
 
         /* 導覽列 - 仿照 SG2026 Navbar */
@@ -33,6 +34,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .navbar-brand {
@@ -54,18 +56,18 @@
         .hero {
             background-color: var(--sg-primary);
             color: white;
-            padding: 5rem 2rem;
+            padding: 4rem 1.5rem;
             text-align: center;
         }
 
         .hero h1 {
-            font-size: 2.8rem;
+            font-size: 2.2rem;
             margin: 0;
             font-weight: 700;
         }
 
         .hero p {
-            font-size: 1.1rem;
+            font-size: 1rem;
             opacity: 0.8;
             margin-top: 0.5rem;
         }
@@ -74,7 +76,7 @@
         .content-container {
             max-width: 1100px;
             margin: 0 auto;
-            padding: 3rem 1.5rem;
+            padding: 2rem 1rem;
         }
 
         /* 搜尋與篩選器 - 仿照 SG2026 介面 */
@@ -90,7 +92,10 @@
 
         .tabs {
             display: flex;
-            gap: 1.5rem;
+            gap: 1.2rem;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 0.2rem;
         }
 
         .tab-item {
@@ -100,6 +105,7 @@
             font-weight: 500;
             border-bottom: 3px solid transparent;
             transition: all 0.3s;
+            white-space: nowrap;
         }
 
         .tab-item:hover {
@@ -116,7 +122,8 @@
             padding: 8px 12px;
             border-radius: 4px;
             font-size: 0.9rem;
-            width: 250px;
+            width: 100%;
+            max-width: 250px;
             margin-bottom: 0.8rem;
         }
 
@@ -124,19 +131,20 @@
         .sg-table {
             width: 100%;
             border-collapse: collapse;
+            min-width: 600px; /* 確保在手機上有橫向滾動而不至於壓縮 */
         }
 
         .sg-table thead th {
             text-align: left;
             background-color: #f9f9f9;
-            padding: 15px;
+            padding: 12px 15px;
             font-weight: bold;
             border-top: 2px solid var(--sg-primary);
             border-bottom: 1px solid var(--sg-border);
         }
 
         .sg-table tbody td {
-            padding: 20px 15px;
+            padding: 18px 15px;
             border-bottom: 1px solid var(--sg-border);
             vertical-align: top;
         }
@@ -158,11 +166,12 @@
         /* 標籤 Badge */
         .badge {
             display: inline-block;
-            padding: 2px 10px;
+            padding: 2px 8px;
             font-size: 11px;
             font-weight: bold;
             border-radius: 4px;
             text-transform: uppercase;
+            white-space: nowrap;
         }
         .badge-move { background-color: #f3f4f6; color: #4b5563; border: 1px solid #d1d5db; }
         .badge-sight { background-color: var(--sg-secondary); color: var(--sg-primary); border: 1px solid #bbf7d0; }
@@ -172,7 +181,7 @@
         /* 頁尾 */
         footer {
             background-color: #f8f8f8;
-            padding: 4rem 2rem;
+            padding: 3rem 1.5rem;
             text-align: center;
             border-top: 1px solid var(--sg-border);
             color: var(--sg-gray);
@@ -185,6 +194,12 @@
             margin-top: 0.5rem;
             font-style: italic;
         }
+
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 1.8rem; }
+            .navbar { padding: 0.8rem 1rem; }
+            .search-box input { max-width: 100%; }
+        }
     </style>
 </head>
 <body>
@@ -194,8 +209,7 @@
         <a href="#" class="navbar-brand">Okinawa 2026</a>
         <div class="navbar-links">
             <a href="#">首頁</a>
-            <a href="#">行程一覽</a>
-            <a href="#">聯絡資訊</a>
+            <a href="#">行程</a>
         </div>
     </nav>
 
@@ -217,18 +231,18 @@
                 <div class="tab-item" data-type="住宿">住宿</div>
             </div>
             <div class="search-box">
-                <input type="text" id="searchInput" placeholder="搜尋行程標題或內容...">
+                <input type="text" id="searchInput" placeholder="搜尋關鍵字...">
             </div>
         </div>
 
         <!-- 表格 -->
-        <div style="overflow-x: auto;">
+        <div style="overflow-x: auto; border: 1px solid var(--sg-border); border-radius: 4px;">
             <table class="sg-table">
                 <thead>
                     <tr>
-                        <th style="width: 15%;">時間</th>
-                        <th style="width: 15%;">類別</th>
-                        <th style="width: 70%;">行程活動與詳細描述</th>
+                        <th style="width: 120px;">時間</th>
+                        <th style="width: 100px;">類別</th>
+                        <th>行程活動與詳細描述</th>
                     </tr>
                 </thead>
                 <tbody id="itineraryBody">
@@ -296,11 +310,11 @@
 
                 html += `
                     <tr>
-                        <td style="font-family: monospace; color: #777;">${item.time}</td>
+                        <td style="font-family: monospace; color: #777; font-size: 0.95rem;">${item.time}</td>
                         <td><span class="badge ${getBadgeType(item.type)}">${item.type}</span></td>
                         <td>
                             <div style="font-weight: bold; font-size: 1.05rem; margin-bottom: 4px;">${item.title}</div>
-                            <div style="color: #666; font-size: 0.95rem;">${item.content}</div>
+                            <div style="color: #666; font-size: 0.95rem; line-height: 1.5;">${item.content}</div>
                             ${item.note ? `<div class="note-text">※ ${item.note}</div>` : ''}
                         </td>
                     </tr>
