@@ -3,278 +3,216 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SG2026 Style - Okinawa Itinerary</title>
+    <title>SG2026 - Okinawa Travel Itinerary</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* 精確參照 SG2026 GitHub 風格與色彩 */
         :root {
-            --sg-primary: #2d5a27;      /* 深綠色 */
-            --sg-secondary: #e9f5e8;    /* 淡綠色背景 */
-            --sg-text: #333333;
-            --sg-gray: #666666;
-            --sg-border: #dddddd;
-            --sg-link-hover: #dcfce7;
+            --sg-green: #1a4d2e;
+            --sg-light-green: #f0f7f0;
+            --sg-border: #e5e7eb;
         }
-        
+
         body {
-            font-family: 'Helvetica Neue', Helvetica, Arial, "PingFang TC", "Microsoft JhengHei", sans-serif;
-            color: var(--sg-text);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             background-color: #ffffff;
-            margin: 0;
-            -webkit-font-smoothing: antialiased;
+            color: #1f2937;
         }
 
-        /* 導覽列 */
-        .navbar {
-            background-color: var(--sg-primary);
-            padding: 0.8rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        /* 導覽列毛玻璃效果 */
+        .glass-nav {
+            background-color: rgba(26, 77, 46, 0.95);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
         }
 
-        .navbar-brand {
-            color: white;
-            font-weight: bold;
-            font-size: 1.25rem;
-            text-decoration: none;
+        /* 仿 SG2026 表格樣式 */
+        .sg-table-container {
+            border-top: 2px solid var(--sg-green);
         }
 
-        .navbar-links a {
-            color: white;
-            text-decoration: none;
-            margin-left: 1.5rem;
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-
-        /* Hero 區塊 */
-        .hero {
-            background-color: var(--sg-primary);
-            color: white;
-            padding: 4rem 1.5rem;
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 2.2rem;
-            margin: 0;
+        .sg-table th {
+            background-color: #f9fafb;
+            color: #374151;
             font-weight: 700;
-        }
-
-        .hero p {
-            font-size: 1rem;
-            opacity: 0.8;
-            margin-top: 0.5rem;
-        }
-
-        /* 內容容器 */
-        .content-container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-        }
-
-        /* 搜尋與篩選器 */
-        .controls {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin-bottom: 2rem;
-            border-bottom: 1px solid var(--sg-border);
-            gap: 1rem;
-        }
-
-        .tabs {
-            display: flex;
-            gap: 1.2rem;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            padding-bottom: 0.2rem;
-        }
-
-        .tab-item {
-            padding: 0.8rem 0.2rem;
-            cursor: pointer;
-            color: var(--sg-gray);
-            font-weight: 500;
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s;
-            white-space: nowrap;
-        }
-
-        .tab-item:hover {
-            color: var(--sg-primary);
-        }
-
-        .tab-item.active {
-            color: var(--sg-primary);
-            border-bottom-color: var(--sg-primary);
-        }
-
-        .search-box input {
-            border: 1px solid var(--sg-border);
-            padding: 8px 12px;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            width: 100%;
-            max-width: 250px;
-            margin-bottom: 0.8rem;
-        }
-
-        /* 表格結構 */
-        .sg-table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 600px;
-        }
-
-        .sg-table thead th {
-            text-align: left;
-            background-color: #f9f9f9;
-            padding: 12px 15px;
-            font-weight: bold;
-            border-top: 2px solid var(--sg-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.875rem;
+            padding: 1rem;
             border-bottom: 1px solid var(--sg-border);
         }
 
-        .sg-table tbody td {
-            padding: 18px 15px;
+        .sg-table td {
+            padding: 1.25rem 1rem;
             border-bottom: 1px solid var(--sg-border);
             vertical-align: top;
         }
 
         .sg-table tr:hover {
-            background-color: #fcfcfc;
+            background-color: var(--sg-light-green);
+            transition: background-color 0.2s;
         }
 
-        /* 日期標頭 */
-        .date-row {
-            background-color: #f1f1f1;
-            padding: 8px 15px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            color: #555;
-            text-transform: uppercase;
+        /* 分類標籤樣式 */
+        .tab-btn {
+            position: relative;
+            padding: 0.75rem 1rem;
+            font-weight: 500;
+            color: #6b7280;
+            transition: all 0.3s;
         }
 
-        /* 標籤 Badge */
+        .tab-btn:hover {
+            color: var(--sg-green);
+        }
+
+        .tab-btn.active {
+            color: var(--sg-green);
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--sg-green);
+        }
+
+        /* 類型徽章 */
         .badge {
             display: inline-block;
-            padding: 2px 8px;
-            font-size: 11px;
-            font-weight: bold;
+            padding: 0.125rem 0.625rem;
             border-radius: 4px;
-            text-transform: uppercase;
-            white-space: nowrap;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border: 1px solid transparent;
         }
-        .badge-move { background-color: #f3f4f6; color: #4b5563; border: 1px solid #d1d5db; }
-        .badge-sight { background-color: var(--sg-secondary); color: var(--sg-primary); border: 1px solid #bbf7d0; }
-        .badge-food { background-color: #fef9c3; color: #854d0e; border: 1px solid #fef08a; }
-        .badge-stay { background-color: #e0f2fe; color: #075985; border: 1px solid #bae6fd; }
+        .badge-move { background: #f3f4f6; color: #4b5563; border-color: #d1d5db; }
+        .badge-sight { background: #dcfce7; color: #166534; border-color: #bbf7d0; }
+        .badge-food { background: #fef9c3; color: #854d0e; border-color: #fef08a; }
+        .badge-stay { background: #e0f2fe; color: #075985; border-color: #bae6fd; }
 
-        footer {
-            background-color: #f8f8f8;
-            padding: 3rem 1.5rem;
-            text-align: center;
-            border-top: 1px solid var(--sg-border);
-            color: var(--sg-gray);
-            font-size: 0.85rem;
+        .search-input {
+            border: 1px solid #d1d5db;
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
 
-        .note-text {
-            color: #e53e3e;
-            font-size: 0.8rem;
-            margin-top: 0.5rem;
-            font-style: italic;
-        }
-
-        @media (max-width: 640px) {
-            .hero h1 { font-size: 1.8rem; }
-            .navbar { padding: 0.8rem 1rem; }
-            .search-box input { max-width: 100%; }
+        .search-input:focus {
+            border-color: var(--sg-green);
+            box-shadow: 0 0 0 3px rgba(26, 77, 46, 0.1);
+            outline: none;
         }
     </style>
 </head>
-<body>
+<body class="bg-white">
 
-    <nav class="navbar">
-        <a href="#" class="navbar-brand">Okinawa 2026</a>
-        <div class="navbar-links">
-            <a href="#">首頁</a>
-            <a href="#">行程</a>
+    <!-- 頂部導覽列 -->
+    <nav class="glass-nav fixed w-full top-0 z-50 text-white shadow-lg">
+        <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <i class="fa-solid fa-map-location-dot text-xl"></i>
+                <span class="font-bold text-lg tracking-wider">OKINAWA 2026</span>
+            </div>
+            <div class="hidden md:flex space-x-8 text-sm font-medium">
+                <a href="#" class="hover:text-green-200 transition">HOME</a>
+                <a href="#" class="hover:text-green-200 transition">ITINERARY</a>
+                <a href="#" class="hover:text-green-200 transition">MAP</a>
+            </div>
         </div>
     </nav>
 
-    <header class="hero">
-        <h1>沖繩五天四夜·自駕與散策行程</h1>
-        <p>2026/05/21 - 2026/05/25 旅遊詳細清單</p>
+    <!-- 標題橫幅 -->
+    <header class="bg-[#1a4d2e] pt-32 pb-16 px-4 text-center">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-4 tracking-tight">Travel Itinerary</h1>
+            <p class="text-green-100 text-lg md:text-xl font-light opacity-90">沖繩五天四夜·自駕與散策行程表</p>
+            <div class="mt-6 flex justify-center space-x-4 text-xs text-green-200 uppercase tracking-widest">
+                <span><i class="fa-solid fa-calendar-days mr-1"></i> May 21 - 25, 2026</span>
+                <span><i class="fa-solid fa-location-dot mr-1"></i> Okinawa, Japan</span>
+            </div>
+        </div>
     </header>
 
-    <main class="content-container">
+    <main class="max-w-6xl mx-auto px-4 py-12">
         
-        <div class="controls">
-            <div class="tabs" id="tabs">
-                <div class="tab-item active" data-type="All">All</div>
-                <div class="tab-item" data-type="景點">景點</div>
-                <div class="tab-item" data-type="移動">移動</div>
-                <div class="tab-item" data-type="飲食">飲食</div>
-                <div class="tab-item" data-type="住宿">住宿</div>
+        <!-- 控制區塊 -->
+        <div class="flex flex-col md:flex-row justify-between items-center mb-8 border-b border-gray-200">
+            <div class="flex space-x-2 overflow-x-auto w-full md:w-auto" id="tabGroup">
+                <button class="tab-btn active" data-filter="All">ALL</button>
+                <button class="tab-btn" data-filter="景點">SIGHTS</button>
+                <button class="tab-btn" data-filter="移動">TRANSPORT</button>
+                <button class="tab-btn" data-filter="飲食">FOOD</button>
+                <button class="tab-btn" data-filter="住宿">STAY</button>
             </div>
-            <div class="search-box">
-                <input type="text" id="searchInput" placeholder="搜尋關鍵字...">
+            <div class="py-4 w-full md:w-auto">
+                <div class="relative">
+                    <input type="text" id="searchInput" placeholder="搜尋日期、標題或內容..." 
+                           class="search-input w-full md:w-72 pl-10 pr-4 py-2 rounded-md text-sm">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-gray-400"></i>
+                </div>
             </div>
         </div>
 
-        <div style="overflow-x: auto; border: 1px solid var(--sg-border); border-radius: 4px;">
-            <table class="sg-table">
+        <!-- 行程表格 -->
+        <div class="overflow-x-auto sg-table-container shadow-sm">
+            <table class="sg-table w-full">
                 <thead>
                     <tr>
-                        <th style="width: 120px;">時間</th>
-                        <th style="width: 100px;">類別</th>
-                        <th>行程活動與詳細描述</th>
+                        <th class="w-24 text-center">Time</th>
+                        <th class="w-32 text-center">Type</th>
+                        <th>Activity / Details</th>
                     </tr>
                 </thead>
                 <tbody id="itineraryBody">
+                    <!-- 資料由 JavaScript 動態插入 -->
                 </tbody>
             </table>
         </div>
+
+        <!-- 無結果提示 -->
+        <div id="noResults" class="hidden py-20 text-center text-gray-400">
+            <i class="fa-solid fa-calendar-xmark text-4xl mb-4"></i>
+            <p>沒有找到符合條件的行程項目</p>
+        </div>
     </main>
 
-    <footer>
-        <p style="font-weight: bold; margin-bottom: 10px;">Okinawa Travel Planning 2026</p>
-        <p>版面樣式參考自 SG2026 研討會網頁</p>
-        <p style="margin-top: 20px; opacity: 0.6;">&copy; 2026 All rights reserved.</p>
+    <footer class="bg-gray-50 border-t border-gray-200 py-12 mt-20">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <p class="text-gray-600 font-bold mb-2">Okinawa 2026 Travel Guide</p>
+            <p class="text-gray-400 text-xs">Based on SG2026 Conference Template Style</p>
+            <div class="mt-6 flex justify-center space-x-4 text-gray-400">
+                <i class="fa-brands fa-github hover:text-green-800 cursor-pointer transition"></i>
+                <i class="fa-solid fa-envelope hover:text-green-800 cursor-pointer transition"></i>
+            </div>
+        </div>
     </footer>
 
     <script>
+        // 從 CSV 解析並整理的實際行程資料
         const travelData = [
-            { date: "2026/05/21", time: "11:30", type: "移動", title: "出發桃園機場T1", content: "前往桃園機場搭乘 14:45 飛往沖繩班機", note: "最晚中午12點前要出發" },
-            { date: "2026/05/21", time: "14:45", type: "移動", title: "班機起飛", content: "飛行時間 1.5hr", note: "" },
-            { date: "2026/05/21", time: "17:20", type: "移動", title: "抵達沖繩那霸機場", content: "拿取行李後，搭單軌電車前往牧志站", note: "" },
-            { date: "2026/05/21", time: "18:30", type: "住宿", title: "飯店休息 - ALPHABED INN", content: "ALPHABED INN 那覇国際通りWEST 入住手續", note: "準備腳力吃飯逛街囉~" },
-            { date: "2026/05/21", time: "19:30", type: "景點", title: "國際通散策", content: "在那霸最熱鬧的街道尋找晚餐與伴手禮", note: "" },
+            { id: 1, date: "2026/05/21", time: "11:30", type: "移動", title: "出發桃園機場T1", content: "前往桃園機場搭乘 14:45 飛往沖繩班機", note: "最晚中午12點前要出發" },
+            { id: 2, date: "2026/05/21", time: "14:45", type: "移動", title: "班機起飛", content: "飛行時間 1.5hr", note: "" },
+            { id: 3, date: "2026/05/21", time: "17:20", type: "移動", title: "抵達沖繩那霸機場", content: "拿取行李後，搭單軌電車前往牧志站", note: "" },
+            { id: 4, date: "2026/05/21", time: "18:30", type: "住宿", title: "飯店休息 - ALPHABED INN", content: "ALPHABED INN 那覇国際通りWEST 入住手續", note: "準備腳力吃飯逛街囉~" },
+            { id: 5, date: "2026/05/21", time: "19:30", type: "景點", title: "國際通散策", content: "在那霸最熱鬧的街道尋找晚餐與伴手禮", note: "" },
             
-            { date: "2026/05/22", time: "08:00", type: "飲食", title: "早餐時光", content: "那霸市第一牧志公設市場", note: "嘗試在地新鮮海產" },
-            { date: "2026/05/22", time: "11:00", type: "住宿", title: "飯店Check out", content: "準備租車並一路向北", note: "" },
-            { date: "2026/05/22", time: "13:00", type: "景點", title: "セカンドストリート浦添58号店", content: "Second Street 挖寶之旅", note: "" },
-            { date: "2026/05/22", time: "15:00", type: "住宿", title: "入住北谷飯店", content: "tatami no yado chatan mihama by coldio", note: "" },
-            { date: "2026/05/22", time: "16:30", type: "飲食", title: "美濱迴轉壽司市場", content: "美國村超人氣壽司，16:30開始營業", note: "建議提早排隊領號碼牌" },
+            { id: 6, date: "2026/05/22", time: "08:00", type: "飲食", title: "早餐時光", content: "那霸市第一牧志公設市場", note: "嘗試在地新鮮海產" },
+            { id: 7, date: "2026/05/22", time: "11:00", type: "住宿", title: "飯店Check out", content: "準備租車並一路向北囉", note: "" },
+            { id: 8, date: "2026/05/22", time: "13:00", type: "景點", title: "セカンドストリート浦添58号店", content: "Second Street 挖寶之旅", note: "古著與二手精品開發" },
+            { id: 9, date: "2026/05/22", time: "15:00", type: "住宿", title: "入住北谷飯店", content: "tatami no yado chatan mihama by coldio", note: "" },
+            { id: 10, date: "2026/05/22", time: "16:30", type: "飲食", title: "美濱迴轉壽司市場", content: "美國村超人氣壽司，16:30開始營業", note: "建議提早排隊領號碼牌" },
             
-            { date: "2026/05/23", time: "09:00", type: "飲食", title: "早餐時光", content: "客美多咖啡 沖繩北谷58號店", note: "" },
-            { date: "2026/05/23", time: "11:00", type: "景點", title: "美國村散策", content: "充滿異國風情的休閒與購物區", note: "" },
-            { date: "2026/05/23", time: "14:00", type: "景點", title: "美麗海水族館", content: "觀賞鯨鯊與黑潮之海，為世界上最大的水族館之一", note: "貫通水族館一樓至二樓的巨大水槽" }
+            { id: 11, date: "2026/05/23", time: "09:00", type: "飲食", title: "早餐時光", content: "客美多咖啡 沖繩北谷58號店", note: "" },
+            { id: 12, date: "2026/05/23", time: "11:00", type: "景點", title: "美國村散策", content: "充滿異國風情的休閒與購物區", note: "" },
+            { id: 13, date: "2026/05/23", time: "14:00", type: "景點", title: "美麗海水族館", content: "觀賞鯨鯊與黑潮之海，為世界上最大的水族館之一", note: "貫通水族館一樓至二樓的巨大水槽" }
         ];
 
-        let currentType = "All";
-        let searchTerm = "";
+        let currentFilter = 'All';
+        let searchQuery = '';
 
-        function getBadgeType(type) {
+        function getBadgeStyle(type) {
             switch(type) {
                 case '移動': return 'badge-move';
                 case '景點': return 'badge-sight';
@@ -284,54 +222,77 @@
             }
         }
 
-        function render() {
-            const tbody = document.getElementById('itineraryBody');
+        function renderTable() {
+            const body = document.getElementById('itineraryBody');
+            const noResults = document.getElementById('noResults');
+            
             const filtered = travelData.filter(item => {
-                const matchType = currentType === "All" || item.type === currentType;
-                const matchSearch = item.title.includes(searchTerm) || item.content.includes(searchTerm);
-                return matchType && matchSearch;
+                const matchFilter = currentFilter === 'All' || item.type === currentFilter;
+                const matchSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                                   item.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                   item.date.includes(searchQuery);
+                return matchFilter && matchSearch;
             });
 
-            let html = "";
-            let lastDate = "";
+            if (filtered.length === 0) {
+                body.innerHTML = '';
+                noResults.classList.remove('hidden');
+                return;
+            }
+
+            noResults.classList.add('hidden');
+            let html = '';
+            let lastDate = '';
 
             filtered.forEach(item => {
+                // 如果是新的一天，插入日期標頭列（仿 SG2026 分組樣式）
                 if (item.date !== lastDate) {
-                    html += `<tr><td colspan="3" class="date-row">${item.date}</td></tr>`;
+                    html += `
+                        <tr class="bg-gray-50">
+                            <td colspan="3" class="px-4 py-2 text-xs font-bold text-green-800 border-l-4 border-green-800">
+                                <i class="fa-solid fa-calendar mr-2"></i>${item.date}
+                            </td>
+                        </tr>
+                    `;
                     lastDate = item.date;
                 }
 
                 html += `
                     <tr>
-                        <td style="font-family: monospace; color: #777; font-size: 0.95rem;">${item.time}</td>
-                        <td><span class="badge ${getBadgeType(item.type)}">${item.type}</span></td>
+                        <td class="text-center font-mono text-gray-500 text-sm">${item.time}</td>
+                        <td class="text-center">
+                            <span class="badge ${getBadgeStyle(item.type)}">${item.type || '其他'}</span>
+                        </td>
                         <td>
-                            <div style="font-weight: bold; font-size: 1.05rem; margin-bottom: 4px;">${item.title}</div>
-                            <div style="color: #666; font-size: 0.95rem; line-height: 1.5;">${item.content}</div>
-                            ${item.note ? `<div class="note-text">※ ${item.note}</div>` : ''}
+                            <div class="text-base font-bold text-gray-900 mb-1">${item.title}</div>
+                            <div class="text-sm text-gray-600 leading-relaxed">${item.content}</div>
+                            ${item.note ? `<div class="mt-2 text-xs text-orange-600 font-medium"><i class="fa-solid fa-circle-info mr-1"></i>${item.note}</div>` : ''}
                         </td>
                     </tr>
                 `;
             });
 
-            tbody.innerHTML = html || '<tr><td colspan="3" style="text-align:center; padding: 50px; color: #999;">沒有符合條件的行程資料。</td></tr>';
+            body.innerHTML = html;
         }
 
+        // 搜尋監聽
         document.getElementById('searchInput').addEventListener('input', (e) => {
-            searchTerm = e.target.value;
-            render();
+            searchQuery = e.target.value;
+            renderTable();
         });
 
-        document.querySelectorAll('.tab-item').forEach(tab => {
-            tab.addEventListener('click', () => {
-                document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                currentType = tab.getAttribute('data-type');
-                render();
+        // 標籤切換監聽
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.getAttribute('data-filter');
+                renderTable();
             });
         });
 
-        render();
+        // 初始渲染
+        renderTable();
     </script>
 </body>
 </html>
